@@ -1,0 +1,43 @@
+{
+  "name": "altumanalytics-node",
+  "version": "0.0.1",
+  "description": "event tracking",
+  "repository": "github:alexeybondarovitch/altumanalitycs-node",
+  "homepage": "https://github.com/alexeybondarovitch/altumanalytics-node",
+  "main": "lib/altumanalytics-node.min.js",
+  "scripts": {
+    "clean": "rimraf lib",
+    "dev": "webpack --config config/webpack.dev.js",
+    "build": "webpack --config config/webpack.prod.js",
+    "prepare": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "event",
+    "track",
+    "statistic",
+    "analysis"
+  ],
+  "author": "Alexey Bondarovitch",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-regenerator": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-webpack-alias": "^2.1.2",
+    "rimraf": "^2.6.3",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.4.2",
+    "core-js": "^3.0.0",
+    "cross-fetch": "^3.0.2",
+    "es6-promise": "^4.2.6"
+  }
+}
