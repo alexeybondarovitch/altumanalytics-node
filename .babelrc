@@ -1,32 +1,14 @@
 {
-  "env": {
-    "node": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "targets": {
-              "node": true
-            }
-          },
-        ],
-      ],
-    },
-    "client": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": "usage",
-            "corejs": "3",
-            "targets": {
-              "ie": "11"
-            }
-          },
-        ],
-      ],
-    }
-  },
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": true
+        }
+      },
+    ],
+  ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     [

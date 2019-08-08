@@ -20,24 +20,24 @@
   "author": "Alexey Bondarovitch",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.4",
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-regenerator": "^7.4.0",
-    "@babel/plugin-transform-runtime": "^7.4.0",
-    "@babel/preset-env": "^7.3.4",
-    "babel-loader": "^8.0.5",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
     "babel-plugin-webpack-alias": "^2.1.2",
     "rimraf": "^2.6.3",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.2",
     "core-js": "^3.0.0",
-    "cross-fetch": "^3.0.2",
-    "es6-promise": "^4.2.6"
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
   }
 }

@@ -1,7 +1,5 @@
 const path = require("path");
 
-const libraryName = "AltumAnalytics";
-
 const config = {
   entry: {
     altumanalytics: "./src/index.js"
@@ -18,8 +16,6 @@ const config = {
   output: {
     filename: "[name]-node.js",
     path: path.resolve(__dirname, "../lib"),
-    library: libraryName,
-    libraryTarget: "umd",
     globalObject: "this"
   },
   module: {
@@ -28,10 +24,7 @@ const config = {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components|lib)/,
         use: {
-          loader: "babel-loader",
-          options: {
-            envName: "node"
-          }
+          loader: "babel-loader"
         }
       }
     ]
