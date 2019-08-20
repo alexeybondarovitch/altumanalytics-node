@@ -16,7 +16,7 @@ const config = {
   output: {
     filename: "[name]-node.js",
     path: path.resolve(__dirname, "../lib"),
-    globalObject: "this"
+    libraryTarget: 'commonjs'
   },
   module: {
     rules: [

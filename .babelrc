@@ -12,12 +12,6 @@
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     [
-      "@babel/plugin-transform-runtime",
-      {
-        "useESModules": true
-      }
-    ],
-    [
       "babel-plugin-webpack-alias",
       {
         "config": "./config/webpack.common.js"
