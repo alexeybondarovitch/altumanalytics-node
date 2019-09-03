@@ -2,33 +2,47 @@ import { InitializationError } from "@errors";
 import { logEvent } from "@services/eventService";
 import { EventFactory } from "./event/eventFactory";
 
-const config = {
-  productId: null,
-  userId: null
+let _config = {
+  userId: null,
+  groupId: null,
+  productId: null
 };
 
 class AltumAnalytics {
-  init = ({ productId, userId } = {}) => {
-    // override productId if new was provided or use previous one
-    config.productId = productId || config.productId;
-    config.userId = userId || config.userId;
+  init = config => {
+    // override previous settings
+    _config = { ..._config, ...config };
 
-    if (!config.productId) {
-      throw new InitializationError("ProductId must be provided.");
+    const { productId, userId, groupId } = _config;
+
+    let errArg = null;
+    if (!productId) {
+      errArg = "ProductId";
+    }
+    if (!userId) {
+      errArg = "UserId";
+    }
+    if (!groupId) {
+      errArg = "GroupId";
+    }
+
+    if (errArg) {
+      throw new InitializationError(`${errArg} must be provided.`);
     }
 
     return this;
   };
 
   log = async (event, count = 1, options = {}) => {
-    if (!config.productId) {
+    if (!_config.productId) {
       throw new InitializationError("Altum is not initialized.");
     }
 
-    const { groups, data, time, userId } = options;
+    const { groups, data = {}, time } = options;
+    data.userId = _config.userId;
 
     const eventObj = EventFactory.createEvent({
-      userId: userId || config.userId,
+      userId: _config.groupId,
       event,
       groups,
       count,
@@ -37,7 +51,7 @@ class AltumAnalytics {
     });
 
     if (eventObj) {
-      await logEvent(eventObj, config.productId);
+      await logEvent(eventObj, _config.productId);
     }
   };
 }

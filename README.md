@@ -29,7 +29,7 @@ Ideally you would use module loader or compilation step to import using ES6 modu
 ```javascript
 import { Altum } from 'altumanalytics';
 
-Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
+Altum.init({productId: 'PRODUCT ID', groupId: 'GROUP_ID', userId: 'USER ID'});
 ```
 
 If you prefer CommonJS modules then the library can be included as
@@ -37,7 +37,7 @@ If you prefer CommonJS modules then the library can be included as
 ```javascript
 const Altum = require('altumanalytics').Altum;
 
-Altum.init({productId: 'PRODUCT ID', userId: 'USER ID'/*, options:{}*/});
+Altum.init({productId: 'PRODUCT ID', groupId: 'GROUP_ID', userId: 'USER ID'});
 ```
 
 ### Initialization
@@ -55,45 +55,17 @@ Call ```Altum.init``` to initialize library.
 | Property Name | Type  |  Required | Description
 |-------------------|-----------------|--------------|--------------|
 | productId  | String | Required | Your unique product Id. Exception will be thrown if not provided.|
-| userId  | String | Optional | Current signed in userId. (Usually Db Key). User Id is optional parameter during initialization, <b>BUT if you don't provide it during initialization, you will have to provide it later</b>|
-| options  | Object | Optional | Optional object with additional settings (see notice below).|
-
-
-<b>options</b> is the optional object with next properties:
-
-| Property Name | Type  |  Description | Default Value
-|-------------------|-----------------|--------------|--------------|
-| bufferSize  | Number | Specify the size of buffer to store events before sending them to server. | 20 |
-
-<b>Note:</b> If userId is provided on initialization it will be used as context for all API calls.
-BUT it can be overriden later by calling ```Altum.init``` method second time.
-Also you can specify userId in the context of specific method. (see Altum.log method definition).
+| groupId  | String | Required | Unique identifier per license.|
+| userId  | String | Required | Current signed in userId. (Usually Db Key).|
 
 <b>Note:</b> ```Altum.init``` method can be called several times to change current product or current user.
 
-<b>Note:</b> ProductId must be provided at least one time in ```Altum.init``` calls. If not specified in subsequent calls, then previous value will be used.
-
-
 ### Examples:
-
-Initialize library on application start and then later initialize current user
-```javascript
-Altum.init({productId: 'test'});
-
-//later after user sign in
-Altum.init({ userId: '12345'});
-```
 
 Init library after user sign in and specify the product:
 
 ```javascript
-Altum.init({productId: 'test', userId: '12345'});
-```
-
-Init library with custom buffer size:
-
-```javascript
-Altum.init({productId: 'test', userId: '12345', options: {bufferSize: 5}});
+Altum.init({productId: 'test', groupId: '123', userId: '12345'});
 ```
 
 ## Usage
@@ -124,7 +96,6 @@ The ```log``` call has the folowing parameters:
 |-------------------|-----------------|--------------|
 | data  | Object | Any data associated with tracked event. |
 | time  |  TimeStamp | js representation of time (example ```(new Date).getTime()```). If not provided, current UTC time will be used|
-|userId |  String | User Identifier which will be associated with tracked event. (Usually Db Key). |
 |groups |  Array | Array of groups to categorize event for future using |
 
 ### Examples
@@ -164,17 +135,5 @@ Altum.log('Grouped event', 1, { time: historicalTime });
 Log user payment event:
 
 ```javascript
-Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, userId: '123456', groups: ['Payments'] })
+Altum.log('Payment', 100.34, { data: { objectId: 'egwg1251f' }, groups: ['Payments'] })
 ```
-
-### <b>Flush</b> method definition:
-
-To decrease network load, AltumAnalytics use buffer to send events in batch.
-If you want to force sending events which are currently in buffer Altum specify additional API method for it.
-
-```javascript
-Altum.flush();
-```
-
-This method should be avoided in usual use cases for your application.
-But in some cases (such as application stop), it can be used to avoid data loss.
